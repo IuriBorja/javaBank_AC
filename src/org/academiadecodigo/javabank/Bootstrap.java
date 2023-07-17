@@ -7,6 +7,7 @@ import org.academiadecodigo.javabank.controller.transaction.WithdrawalController
 import org.academiadecodigo.javabank.managers.AccountManager;
 import org.academiadecodigo.javabank.model.Bank;
 import org.academiadecodigo.javabank.model.Customer;
+import org.academiadecodigo.javabank.service.AuthS;
 import org.academiadecodigo.javabank.view.*;
 
 import java.util.HashMap;
@@ -53,10 +54,19 @@ public class Bootstrap {
         LoginController loginController = new LoginController();
         LoginView loginView = new LoginView();
         loginController.setView(loginView);
-        loginController.setBank(bank);
         loginView.setBank(bank);
         loginView.setLoginController(loginController);
         loginView.setPrompt(prompt);
+
+
+        AuthS authS = new AuthS();
+        loginController.setAuth(authS);
+        authS.setBank(bank);
+        authS.setLoginController(loginController);
+        loginController.setLoginView(loginView);
+
+
+
 
         // wire main controller and view
         MainController mainController = new MainController();
